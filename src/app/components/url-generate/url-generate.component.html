@@ -1,0 +1,21 @@
+<div class="generate-url-container">
+  <div class="input-group mb-3">
+    <input
+      [(ngModel)]="inputUrl"
+      class="url-control form-control rounded"
+      placeholder="Enter URL to shorten"
+    />
+    <div class="input-group-append">
+      <button
+        class="btn btn-outline-secondary confirm-short-btn"
+        type="button"
+        [disabled]="inputUrl.length < 3"
+      >
+        Shorten
+      </button>
+    </div>
+  </div>
+  <div>
+    <app-url-generate-advanced-settings></app-url-generate-advanced-settings>
+  </div>
+</div>
