@@ -5,6 +5,25 @@
 #settings-lbl:hover {
   opacity: 0.8;
 }
-#settings-container{
-    border: 1px solid red;
+#settings-container {
+  border: 1px solid red;
+}
+#settings-area {
+  margin-top: 20px;
+  position: relative;
+}
+#left-control{
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  color: #94a3b8;
+}
+
+#right-control {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background-color: transparent;
 }
