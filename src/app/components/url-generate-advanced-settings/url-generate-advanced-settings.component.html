@@ -1,11 +1,21 @@
-<div id="settings-container">
-  <label id="settings-lbl">Show advanced settings</label>
-  <div id="settings-area">
-    <div id="password-area">
-      <div id="left-control">Password</div>
-      <div id="right-control">
-        <input type="text" class="form-control" />
-      </div>
-    </div>
+<label
+  id="settings-lbl"
+  data-bs-toggle="collapse"
+  data-bs-target="#settings-container"
+  aria-expanded="false"
+  >Advanced settings</label
+>
+<div id="settings-container" [ngbCollapse]="true">
+  <div class="component">
+    <span class="label">Password</span>
+    <input type="password" class="input" placeholder="Enter password" />
+  </div>
+  <div class="component">
+    <span  class="label">Custom URL</span>
+    <input for="customUrl" [(ngModel)]="customUrl" type="text" class="input" placeholder="Enter custom URL" />
+  </div>
+  <div class="component" *ngIf="customUrl!=''">   
+   <div class="label">Preview: <span id="preview-url">{{previewUrl}}{{customUrl}}</span></div> 
   </div>
 </div>
+<hr />

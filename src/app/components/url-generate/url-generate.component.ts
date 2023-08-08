@@ -8,7 +8,6 @@ import { FormsModule } from '@angular/forms';
 export class UrlGenerateComponent implements OnInit {
   inputUrl:string = '';
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
   }
 
 }

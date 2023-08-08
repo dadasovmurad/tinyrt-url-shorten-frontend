@@ -5,25 +5,47 @@
 #settings-lbl:hover {
   opacity: 0.8;
 }
-#settings-container {
-  border: 1px solid red;
-}
-#settings-area {
-  margin-top: 20px;
-  position: relative;
-}
-#left-control{
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  color: #94a3b8;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-#right-control {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
+.component {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label {
+  color:#94a3b8;
+  flex: 1;
+}
+
+.input {
   background-color: transparent;
+  border: 1px solid #494848;
+  padding:8px 8px 8px 12px;
+  color: white;
+  margin-top: 15px;
+  background-color: #1e293b;
+  outline: none;
+  border-radius: 5px;
+}
+.input:focus,input:hover {
+  box-shadow: none;
+  border-color: #2f7397;
+}
+.input::placeholder {
+  color:#94a3b8;
+}
+hr {
+  background-color: #253a6e;
+  margin-top: 5%;
+  height: 3px;
+}
+#preview-url {
+    color:rgb(56,189,248);
+    font-weight: bold;
 }
