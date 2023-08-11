@@ -1,0 +1,71 @@
+.container-history {
+  position: relative;
+}
+#basic-information {
+  text-align: center;
+  line-height: 5px;
+  font-family: sans-serif;
+  color: #e2e8f0;
+  font-size: 12px;
+}
+#basic-information div {
+  opacity: 0.6;
+}
+#history-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+#history-area {
+  display: block;
+  width: 420px;
+  padding: 5px 0px 5px 12px;
+  margin-top: 10px;
+  float: left;
+}
+#short-url {
+  color: rgb(203, 213, 225);
+  margin-bottom: 5px;
+}
+#short-url svg {
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+#original-url {
+  color: rgb(100, 116, 139);
+  font-size: 12px;
+  font-family: sans-serif;
+}
+#history-area {
+  border: 1px solid;
+  border-radius: 0.5rem;
+  background-color: rgb(15, 23, 42);
+}
+
+#history-link-area {
+  float: left;
+  width: 250px;
+}
+#history-operation-area {
+  display: block;
+  float: left;
+  padding: 10px 0 10px 30px;
+  height: 50px;
+}
+#history-operation-area svg {
+  margin-right: 10px;
+  color: white;
+  cursor: pointer;
+} 
+#history-operation-area svg:hover {
+  margin-bottom: 2px;
+  opacity: 0.6;
+}
+hr {
+  background-color: #253a6e;
+  margin-top: 5%;
+  height: 3px;
+}

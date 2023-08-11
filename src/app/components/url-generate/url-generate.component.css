@@ -2,11 +2,8 @@
   display: block;
   width: 200px;
   height: 200px;
-  /* border: 1px;
-  border-style: solid;
-  border-color: red; */
   margin: auto;
-  width: 50%;
+  width: 45%;
   padding: 3% 3%;
 }
 .url-control {
@@ -30,11 +27,14 @@
   font-weight: bold;
   color: #334155;
 }
-.url-control:focus,.url-control:hover {
-    box-shadow: none;
-    border-color: #2f7397;
+.confirm-short-btn:hover {
+  opacity: 0.9;
 }
 .confirm-short-btn:enabled {
-    background-color: #067cbc;
+    background-color: #1194db;
     color:white;
+}
+.url-control:focus,.url-control:hover {
+  box-shadow: none;
+  border-color: #2f7397;
 }

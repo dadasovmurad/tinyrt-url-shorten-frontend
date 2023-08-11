@@ -11,11 +11,19 @@
     <input type="password" class="input" placeholder="Enter password" />
   </div>
   <div class="component">
-    <span  class="label">Custom URL</span>
-    <input for="customUrl" [(ngModel)]="customUrl" type="text" class="input" placeholder="Enter custom URL" />
+    <span class="label">Custom URL</span>
+    <input
+      for="customUrl"
+      [(ngModel)]="customUrl"
+      type="text"
+      class="input"
+      placeholder="Enter custom URL"
+    />
   </div>
-  <div class="component" *ngIf="customUrl!=''">   
-   <div class="label">Preview: <span id="preview-url">{{previewUrl}}{{customUrl}}</span></div> 
+  <div class="component" *ngIf="customUrl != ''">
+    <div class="label">
+      Preview: <span id="preview-url">{{ previewUrl }}{{ customUrl }}</span>
+    </div>
   </div>
 </div>
 <hr />
