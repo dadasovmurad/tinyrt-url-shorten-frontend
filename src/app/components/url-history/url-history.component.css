@@ -3,7 +3,6 @@
 }
 #basic-information {
   text-align: center;
-  line-height: 5px;
   font-family: sans-serif;
   color: #e2e8f0;
   font-size: 12px;
@@ -23,7 +22,6 @@
   width: 420px;
   padding: 5px 0px 5px 12px;
   margin-top: 10px;
-  float: left;
 }
 #short-url {
   color: rgb(203, 213, 225);
@@ -47,7 +45,7 @@
 
 #history-link-area {
   float: left;
-  width: 250px;
+  width: 60%;
 }
 #history-operation-area {
   display: block;

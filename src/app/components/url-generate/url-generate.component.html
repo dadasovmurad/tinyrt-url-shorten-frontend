@@ -1,23 +1,61 @@
 <div class="generate-url-container">
-  <div class="input-group mb-3">
-    <input
-      [(ngModel)]="inputUrl"
-      class="url-control form-control rounded"
-      placeholder="Enter URL to shorten"
-    />
-    <div class="input-group-append">
-      <button
-        class="btn btn-outline-secondary confirm-short-btn"
-        type="button"
-        [disabled]="inputUrl.length < 3"
-      >
-        Shorten
-      </button>
+  <form [formGroup]="urlGenerateForm">
+    <div class="input-group mb-3">
+      <input
+        formControlName="shortUrl"
+        [(ngModel)]="inputUrl"
+        class="url-control form-control rounded"
+        placeholder="Enter URL to shorten"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary confirm-short-btn"
+          type="button"
+          [textContent]="btnShortenContent"
+          (click)="shortenClick()"
+          [disabled]="disabledValidation()"
+        ></button>
+      </div>
     </div>
-  </div>
-  <div>
-    <app-url-generate-advanced-settings></app-url-generate-advanced-settings>
-  </div>
+    <div>
+      <label
+        id="settings-lbl"
+        data-bs-toggle="collapse"
+        data-bs-target="#settings-container"
+        aria-expanded="false"
+        >Advanced settings</label
+      >
+      <div id="settings-container" [ngbCollapse]="true">
+        <div class="component">
+          <span class="label">Password</span>
+          <input
+            formControlName="password"
+            type="password"
+            class="input"
+            placeholder="Enter password"
+          />
+        </div>
+        <div class="component">
+          <span class="label">Custom URL</span>
+          <input
+            for="customUrl"
+            [(ngModel)]="customUrl"
+            type="text"
+            class="input"
+            formControlName="customUrl"
+            placeholder="Enter custom URL"
+          />
+        </div>
+        <div class="component" *ngIf="customUrl != ''">
+          <div class="label">
+            Preview:
+            <span id="preview-url">{{ previewUrl }}{{ customUrl }}</span>
+          </div>
+        </div>
+      </div>
+      <hr />
+    </div>
+  </form>
   <app-url-history></app-url-history>
 </div>
 <router-outlet></router-outlet>
