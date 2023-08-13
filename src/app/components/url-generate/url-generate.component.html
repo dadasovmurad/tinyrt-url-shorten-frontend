@@ -3,9 +3,11 @@
     <div class="input-group mb-3">
       <input
         formControlName="shortUrl"
+        #shortUrl
         [(ngModel)]="inputUrl"
         class="url-control form-control rounded"
         placeholder="Enter URL to shorten"
+        required
       />
       <div class="input-group-append">
         <button
@@ -49,7 +51,9 @@
         <div class="component" *ngIf="customUrl != ''">
           <div class="label">
             Preview:
-            <span id="preview-url">{{ previewUrl }}{{ customUrl }}</span>
+            <span id="preview-url"
+              >{{ previewUrl }}{{ customUrl | validUrl }}</span
+            >
           </div>
         </div>
       </div>

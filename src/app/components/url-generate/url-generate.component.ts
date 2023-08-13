@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   FormGroup,
   Validators,
   FormBuilder,
+  FormControl,
 } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-url-generate',
   templateUrl: './url-generate.component.html',
@@ -14,39 +17,77 @@ export class UrlGenerateComponent implements OnInit {
   btnShortenContent: string = 'Shorten';
   customUrl: string = '';
   readonly previewUrl: string = 'tinyrt.io/';
-  urlGenerateForm: FormGroup;
-  constructor(private formBuilder: FormBuilder) {}
+  urlGenerateForm: any;
+  @ViewChild('shortUrl') shortUrlElement!: ElementRef;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.createUrlGenerateForm();
   }
   shortenClick() {
     if (this.btnShortenContent == 'Shorten') {
-      this.shortUrl();
+      this.shortUrlClicked();
     } else {
-      this.copyUrl();
+      this.copyUrlClicked();
     }
   }
-  shortUrl(): void {
+
+  shortUrlClicked(): void {
     if (this.urlGenerateForm.valid) {
-      console.log(this.urlGenerateForm.value);
-      this.btnShortenContent = 'Copy';
+      if (this.isUrlValid(this.inputUrl)) {
+        console.log(this.urlGenerateForm.value);
+        this.shortUrlElement.nativeElement.select();
+        this.btnShortenContent = 'Copy';
+      } else {
+        this.toastr.error('Invalid URL');
+      }
+    } else {
+      this.toastr.warning('Incorrect validation !');
     }
   }
-  copyUrl(): void {
+  copyUrlClicked(): void {
+    this.shortUrlElement.nativeElement.select();
+    document.execCommand('copy');
+    this.inputUrl = '';
     this.btnShortenContent = 'Shorten';
   }
   disabledValidation(): boolean {
     return !(
-      this.inputUrl.length >= 3 &&
+      this.inputUrl.trim().length >= 3 &&
       (this.customUrl == '' || this.customUrl.trim().length >= 3)
     );
   }
 
   createUrlGenerateForm() {
     this.urlGenerateForm = this.formBuilder.group({
-      shortUrl: ['', Validators.minLength(3)],
+      shortUrl: [
+        '',
+        [
+          Validators.nullValidator,
+          Validators.required,
+          Validators.minLength(3),
+          this.noWhitespaceValidator,
+        ],
+      ],
       customUrl: [''],
+      password: [''],
     });
+  }
+  noWhitespaceValidator(control: FormControl) {
+    return (control.value || '').trim().length >= 3
+      ? null
+      : { whitespace: true };
+  }
+  isUrlValid(url: string): boolean {
+    try {
+      const urlObject = new URL(url);
+      return !!urlObject.searchParams; // !! işareti, değeri boolean'a dönüştürür
+    } catch (error) {
+      return false;
+    }
   }
 }
