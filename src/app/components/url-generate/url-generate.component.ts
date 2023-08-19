@@ -6,6 +6,7 @@ import {
   FormControl,
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { ShortenService } from '../services/shorten.service';
 
 @Component({
   selector: 'app-url-generate',
@@ -16,12 +17,20 @@ export class UrlGenerateComponent implements OnInit {
   inputUrl: string = '';
   btnShortenContent: string = 'Shorten';
   customUrl: string = '';
-  readonly previewUrl: string = 'tinyrt.io/';
+  password: string = '';
+  shortenUrlBtnVisibilty: boolean = false;
+  showProgressBar: boolean = false;
+  onCreateAction: boolean = true;
+
+  readonly previewUrl: string = new URL(window.location.href).origin.concat(
+    '/'
+  );
   urlGenerateForm: any;
   @ViewChild('shortUrl') shortUrlElement!: ElementRef;
 
   constructor(
     private formBuilder: FormBuilder,
+    private shortService: ShortenService,
     private toastr: ToastrService
   ) {}
 
@@ -33,27 +42,49 @@ export class UrlGenerateComponent implements OnInit {
       this.shortUrlClicked();
     } else {
       this.copyUrlClicked();
+      this.inputUrl = '';
+      this.btnShortenContent = 'Shorten';
     }
   }
 
   shortUrlClicked(): void {
     if (this.urlGenerateForm.valid) {
       if (this.isUrlValid(this.inputUrl)) {
-        console.log(this.urlGenerateForm.value);
-        this.shortUrlElement.nativeElement.select();
-        this.btnShortenContent = 'Copy';
+        this.onCreateAction = !this.onCreateAction;
+        let createModel = Object.assign({}, this.urlGenerateForm.value);
+        this.showProgressBar = true;
+        this.shortService.Create(createModel).subscribe((response) => {
+          if (response.success) {
+            this.toastr.success(response.message);
+            this.clearAdvancedSettingsValue();
+            this.inputUrl = this.previewUrl.concat(response.data.shortUrl);
+            console.log(response.data);
+            this.shortUrlElement.nativeElement.value = this.inputUrl;
+            this.shortUrlElement.nativeElement.focus();
+            this.shortUrlElement.nativeElement.select();
+            this.btnShortenContent = 'Copy';
+            this.shortenUrlBtnVisibilty = true;
+          } else this.toastr.error('Error', response.message);
+          this.showProgressBar = false;
+          this.onCreateAction = !this.onCreateAction;
+        });
       } else {
         this.toastr.error('Invalid URL');
       }
     } else {
-      this.toastr.warning('Incorrect validation !');
+      this.toastr.error('Validation error !');
     }
+  }
+  clearAdvancedSettingsValue() {
+    this.customUrl = '';
+    this.password = '';
   }
   copyUrlClicked(): void {
     this.shortUrlElement.nativeElement.select();
     document.execCommand('copy');
-    this.inputUrl = '';
-    this.btnShortenContent = 'Shorten';
+    this.shortenUrlBtnVisibilty = false;
+    this.toastr.clear();
+    this.toastr.info('Copied to clipboard!');
   }
   disabledValidation(): boolean {
     return !(
@@ -61,26 +92,19 @@ export class UrlGenerateComponent implements OnInit {
       (this.customUrl == '' || this.customUrl.trim().length >= 3)
     );
   }
+  shortenOtherUrl() {
+    this.clearAdvancedSettingsValue();
+    this.inputUrl = '';
+    this.shortenUrlBtnVisibilty = false;
+    this.btnShortenContent = 'Shorten';
+  }
 
   createUrlGenerateForm() {
     this.urlGenerateForm = this.formBuilder.group({
-      shortUrl: [
-        '',
-        [
-          Validators.nullValidator,
-          Validators.required,
-          Validators.minLength(3),
-          this.noWhitespaceValidator,
-        ],
-      ],
-      customUrl: [''],
+      destination: ['', [Validators.nullValidator, Validators.required]],
+      shortUrl: ['', []],
       password: [''],
     });
-  }
-  noWhitespaceValidator(control: FormControl) {
-    return (control.value || '').trim().length >= 3
-      ? null
-      : { whitespace: true };
   }
   isUrlValid(url: string): boolean {
     try {
