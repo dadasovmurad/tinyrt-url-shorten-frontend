@@ -21,7 +21,6 @@
   display: block;
   width: 420px;
   padding: 5px 0px 5px 12px;
-  margin-top: 10px;
 }
 #short-url {
   color: rgb(203, 213, 225);
@@ -36,7 +35,11 @@
   color: rgb(100, 116, 139);
   font-size: 12px;
   font-family: sans-serif;
+  white-space: nowrap; /* Metni tek bir satırda tut */
+  overflow: hidden; /* Fazla metni gizle */
+  text-overflow: ellipsis; /* Kesilen metni '...' ile göster */
 }
+
 #history-area {
   border: 1px solid;
   border-radius: 0.5rem;

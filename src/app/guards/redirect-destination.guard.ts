@@ -18,8 +18,6 @@ export const redirectDestinationGuard: CanActivateFn = (route, state) => {
       shortenService.GetUrlDestination(shortUrl).subscribe((res) => {
         if (res.success) {
           window.location.href = res.data;
-        } else {
-          window.location.href = '/';
         }
       });
     }

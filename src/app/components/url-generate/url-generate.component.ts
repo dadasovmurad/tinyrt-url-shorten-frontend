@@ -54,28 +54,27 @@ export class UrlGenerateComponent implements OnInit {
         this.onCreateAction = !this.onCreateAction;
         let createModel = Object.assign({}, this.urlGenerateForm.value);
         this.showProgressBar = true;
-        this.shortService.Create(createModel)
-        .pipe(
-          finalize(() => {
-            this.showProgressBar = false;
-            this.onCreateAction = !this.onCreateAction;
-          })
-        )
-        .subscribe((response) => {
-          if (response.success) {
-            this.toastr.success(response.message);
-            this.clearAdvancedSettingsValue();
-            this.inputUrl = this.previewUrl.concat(response.data.shortUrl);
-            console.log(response.data);
-            this.shortUrlElement.nativeElement.value = this.inputUrl;
-            this.shortUrlElement.nativeElement.focus();
-            this.shortUrlElement.nativeElement.select();
-            this.btnShortenContent = 'Copy';
-            this.shortenUrlBtnVisibilty = true;
-            this.showProgressBar = false;
-            this.onCreateAction = !this.onCreateAction;
-          }
-        });
+        this.shortService
+          .Create(createModel)
+          .pipe(
+            finalize(() => {
+              this.showProgressBar = false;
+              this.onCreateAction = !this.onCreateAction;
+            })
+          )
+          .subscribe((response) => {
+            if (response.success) {
+              this.toastr.success(response.message);
+              this.clearAdvancedSettingsValue();
+              this.inputUrl = this.previewUrl.concat(response.data.shortUrl);
+              console.log(response.data);
+              this.shortUrlElement.nativeElement.value = this.inputUrl;
+              this.shortUrlElement.nativeElement.focus();
+              this.shortUrlElement.nativeElement.select();
+              this.btnShortenContent = 'Copy';
+              this.shortenUrlBtnVisibilty = true;
+            }
+          });
       } else {
         this.toastr.error('Invalid URL');
       }

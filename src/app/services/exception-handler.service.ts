@@ -5,6 +5,7 @@ import {
   Injector,
   NgZone,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
@@ -13,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ExceptionHandlerService implements ErrorHandler {
   constructor(
     @Inject(Injector) private readonly injector: Injector,
-    private zone: NgZone
+    private zone: NgZone,
   ) {}
 
   private get toastService() {
@@ -22,12 +23,16 @@ export class ExceptionHandlerService implements ErrorHandler {
 
   handleError(error: any): void {
     let statusCode = error.status;
+    console.log(error);
     switch (statusCode) {
       case 400:
         this.zone.run(() =>
         this.toastService.error(error.error.message, 'Error')
         );
         break;
+        case 404:
+          window.location.href = '/'
+          break;
       default:
         this.zone.run(() =>
           this.toastService.error(error.error.Message, 'Server error')

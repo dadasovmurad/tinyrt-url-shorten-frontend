@@ -3,12 +3,17 @@
     <h4>Your links</h4>
     <div>Your links are memorized on this device only</div>
   </div>
-  <div class="d-flex justify-content-center"id="history-container">
+  <div
+    *ngFor="let history of historyLinks"
+    class="d-flex justify-content-center"
+    id="history-container"
+  >
     <div id="history-area">
-      <div id="history-link-area" >
+      <div id="history-link-area">
         <div id="short-url" class="d-flex align-items-start">
-          VbYLEvh
+          {{ history.shortUrl }}
           <svg
+            *ngIf="history.passwordProtected"
             xmlns="http://www.w3.org/2000/svg"
             width="16"
             height="16"
@@ -23,45 +28,106 @@
           </svg>
         </div>
         <div id="original-url" class="d-flex align-items-end">
-          https://web.whatsapp.com/
+          {{ history.destination }}
         </div>
       </div>
       <div id="history-operation-area" class="align-self-stretch">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="text-slate-700 dark:text-slate-300 cursor-pointer hover:translate-y-[-1px] hover:opacity-60 transition-all" width="20" height="20"><title>Open link</title><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M8 9h-1a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-8a2 2 0 0 0 -2 -2h-1"></path><path d="M12 14v-11"></path><path d="M9 6l3 -3l3 3"></path></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="text-slate-700 dark:text-slate-300 cursor-pointer hover:translate-y-[-1px] hover:opacity-60 transition-all" width="20" height="20"><title>Copy link</title><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"></path><path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="text-slate-700 dark:text-slate-300 cursor-pointer hover:translate-y-[-1px] hover:opacity-60 transition-all" width="20" height="20"><title>Generate QR code</title><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"></path><path d="M7 17l0 .01"></path><path d="M14 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"></path><path d="M7 7l0 .01"></path><path d="M4 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"></path><path d="M17 7l0 .01"></path><path d="M14 14l3 0"></path><path d="M20 14l0 .01"></path><path d="M14 14l0 3"></path><path d="M14 20l3 0"></path><path d="M17 17l3 0"></path><path d="M20 17l0 3"></path></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="text-slate-700 dark:text-slate-300 cursor-pointer hover:translate-y-[-1px] hover:opacity-60 transition-all" width="20" height="20"><title>Delete link</title><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 7l16 0"></path><path d="M10 11l0 6"></path><path d="M14 11l0 6"></path><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path></svg>
-      </div>
-    </div>
-     <div id="history-area">
-      <div id="history-link-area" >
-        <div id="short-url" class="d-flex align-items-start">
-          VbYLEvh
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-shield-lock-fill"
-            viewBox="0 0 16 16"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M8 0c-.69 0-1.843.265-2.928.56-1.11.3-2.229.655-2.887.87a1.54 1.54 0 0 0-1.044 1.262c-.596 4.477.787 7.795 2.465 9.99a11.777 11.777 0 0 0 2.517 2.453c.386.273.744.482 1.048.625.28.132.581.24.829.24s.548-.108.829-.24a7.159 7.159 0 0 0 1.048-.625 11.775 11.775 0 0 0 2.517-2.453c1.678-2.195 3.061-5.513 2.465-9.99a1.541 1.541 0 0 0-1.044-1.263 62.467 62.467 0 0 0-2.887-.87C9.843.266 8.69 0 8 0zm0 5a1.5 1.5 0 0 1 .5 2.915l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595l.384-1.99A1.5 1.5 0 0 1 8 5z"
-            />
-          </svg>
-        </div>
-        <div id="original-url" class="d-flex align-items-end">
-          https://web.whatsapp.com/
-        </div>
-      </div>
-      <div id="history-operation-area" class="align-self-stretch">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="text-slate-700 dark:text-slate-300 cursor-pointer hover:translate-y-[-1px] hover:opacity-60 transition-all" width="20" height="20"><title>Open link</title><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M8 9h-1a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-8a2 2 0 0 0 -2 -2h-1"></path><path d="M12 14v-11"></path><path d="M9 6l3 -3l3 3"></path></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="text-slate-700 dark:text-slate-300 cursor-pointer hover:translate-y-[-1px] hover:opacity-60 transition-all" width="20" height="20"><title>Copy link</title><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"></path><path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="text-slate-700 dark:text-slate-300 cursor-pointer hover:translate-y-[-1px] hover:opacity-60 transition-all" width="20" height="20"><title>Generate QR code</title><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"></path><path d="M7 17l0 .01"></path><path d="M14 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"></path><path d="M7 7l0 .01"></path><path d="M4 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"></path><path d="M17 7l0 .01"></path><path d="M14 14l3 0"></path><path d="M20 14l0 .01"></path><path d="M14 14l0 3"></path><path d="M14 20l3 0"></path><path d="M17 17l3 0"></path><path d="M20 17l0 3"></path></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="text-slate-700 dark:text-slate-300 cursor-pointer hover:translate-y-[-1px] hover:opacity-60 transition-all" width="20" height="20"><title>Delete link</title><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 7l16 0"></path><path d="M10 11l0 6"></path><path d="M14 11l0 6"></path><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path></svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="text-slate-700 dark:text-slate-300 cursor-pointer hover:translate-y-[-1px] hover:opacity-60 transition-all"
+          width="20"
+          height="20"
+        >
+          <title>Open link</title>
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path
+            d="M8 9h-1a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-8a2 2 0 0 0 -2 -2h-1"
+          ></path>
+          <path d="M12 14v-11"></path>
+          <path d="M9 6l3 -3l3 3"></path>
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="text-slate-700 dark:text-slate-300 cursor-pointer hover:translate-y-[-1px] hover:opacity-60 transition-all"
+          width="20"
+          height="20"
+        >
+          <title>Copy link</title>
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path
+            d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"
+          ></path>
+          <path
+            d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"
+          ></path>
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="text-slate-700 dark:text-slate-300 cursor-pointer hover:translate-y-[-1px] hover:opacity-60 transition-all"
+          width="20"
+          height="20"
+        >
+          <title>Generate QR code</title>
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path
+            d="M4 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"
+          ></path>
+          <path d="M7 17l0 .01"></path>
+          <path
+            d="M14 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"
+          ></path>
+          <path d="M7 7l0 .01"></path>
+          <path
+            d="M4 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"
+          ></path>
+          <path d="M17 7l0 .01"></path>
+          <path d="M14 14l3 0"></path>
+          <path d="M20 14l0 .01"></path>
+          <path d="M14 14l0 3"></path>
+          <path d="M14 20l3 0"></path>
+          <path d="M17 17l3 0"></path>
+          <path d="M20 17l0 3"></path>
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="text-slate-700 dark:text-slate-300 cursor-pointer hover:translate-y-[-1px] hover:opacity-60 transition-all"
+          width="20"
+          height="20"
+        >
+          <title>Delete link</title>
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M4 7l16 0"></path>
+          <path d="M10 11l0 6"></path>
+          <path d="M14 11l0 6"></path>
+          <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+          <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+        </svg>
       </div>
     </div>
   </div>
 </div>
-<hr>
+<hr />
