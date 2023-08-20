@@ -16,7 +16,6 @@ export class PasswordComponent implements OnInit {
    *
    */
   constructor(private route: ActivatedRoute) {}
-
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.shortUrl = params['shortUrl'];

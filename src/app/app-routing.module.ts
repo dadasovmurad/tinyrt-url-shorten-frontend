@@ -3,17 +3,25 @@ import { RouterModule, Routes } from '@angular/router';
 import { PasswordComponent } from './components/password/password.component';
 import { UrlGenerateComponent } from './components/url-generate/url-generate.component';
 import { passwordValidationGuard } from './guards/password-validation.guard';
+import { redirectDestinationGuard } from './guards/redirect-destination.guard';
+import { HeaderComponent } from './components/header/header.component';
 
 const routes: Routes = [
   {
-    component: PasswordComponent,
-    path: 'password/:shortUrl',
-    canActivate:[passwordValidationGuard]
+    component: UrlGenerateComponent,
+    canActivate:[redirectDestinationGuard],
+    path: ':shortUrl',
   },
   {
-    path:'',component:UrlGenerateComponent
+    component: PasswordComponent,
+    path: 'password/:shortUrl',
+    canActivate: [passwordValidationGuard],
   },
-  { path: '**', redirectTo:"/"},
+  {
+    path: '',
+    component: UrlGenerateComponent,
+  },
+  { path: '**', redirectTo: '/' },
 ];
 
 @NgModule({

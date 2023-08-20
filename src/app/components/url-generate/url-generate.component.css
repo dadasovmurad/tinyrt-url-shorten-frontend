@@ -10,7 +10,7 @@
   color: white;
   height: 52px;
   min-width: 120px;
-  margin-right: 3%;
+  margin-right: 2%;
   border: 2px solid;
   border-color: #494848;
 }
@@ -21,6 +21,7 @@
   border-radius: 10px;
   width: 144px;
   height: 52px;
+  margin-right: 8px;
   border: none;
   background-color: #0f172a;
   font-weight: bold;
@@ -80,11 +81,17 @@
 .input::placeholder {
   color:#94a3b8;
 }
-hr {
+hr{
   background-color: #253a6e;
   margin-top: 5%;
   height: 3px;
 }
+#progress-bar{
+  margin-top: 2%;
+  margin-bottom: 2%;
+  color:#1194db;
+}
+
 #preview-url {
     color:rgb(56,189,248);
     font-weight: bold;

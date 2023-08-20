@@ -13,6 +13,8 @@ import { CommonModule } from '@angular/common'; // CommonModule eklenmeli
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
 import {ToastrModule} from "ngx-toastr";
 import { ValidUrlPipe } from './pipes/valid-url.pipe';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -30,11 +32,13 @@ import { ValidUrlPipe } from './pipes/valid-url.pipe';
     ReactiveFormsModule,
     AppRoutingModule,
     NgbModule,
+    HttpClientModule,
     CommonModule, // CommonModule eklenmeli
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       positionClass:"toast-bottom-right"
-    })
+    }),
+    MatProgressBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,7 +2,7 @@
   <form [formGroup]="urlGenerateForm">
     <div class="input-group mb-3">
       <input
-        formControlName="shortUrl"
+        formControlName="destination"
         #shortUrl
         [(ngModel)]="inputUrl"
         class="url-control form-control rounded"
@@ -15,8 +15,16 @@
           type="button"
           [textContent]="btnShortenContent"
           (click)="shortenClick()"
-          [disabled]="disabledValidation()"
+          [disabled]="disabledValidation() || !onCreateAction"
         ></button>
+        <button
+          *ngIf="shortenUrlBtnVisibilty"
+          class="btn btn-outline-secondary confirm-short-btn shorten-other-url"
+          type="button"
+          (click)="shortenOtherUrl()"
+        >
+          Other
+        </button>
       </div>
     </div>
     <div>
@@ -24,19 +32,20 @@
         id="settings-lbl"
         data-bs-toggle="collapse"
         data-bs-target="#settings-container"
-        aria-expanded="false"
+        aria-expanded="true"
         >Advanced settings</label
       >
       <div id="settings-container" [ngbCollapse]="true">
         <div class="component">
           <span class="label">Password</span>
           <input
+            [(ngModel)]="password"
             formControlName="password"
             type="password"
             class="input"
             placeholder="Enter password"
           />
-        </div>
+        </div>  
         <div class="component">
           <span class="label">Custom URL</span>
           <input
@@ -44,8 +53,9 @@
             [(ngModel)]="customUrl"
             type="text"
             class="input"
-            formControlName="customUrl"
+            formControlName="shortUrl"
             placeholder="Enter custom URL"
+            maxlength="20"
           />
         </div>
         <div class="component" *ngIf="customUrl != ''">
@@ -57,7 +67,8 @@
           </div>
         </div>
       </div>
-      <hr />
+      <hr *ngIf="!showProgressBar" />
+      <mat-progress-bar id="progress-bar" *ngIf="showProgressBar" mode="indeterminate"></mat-progress-bar>
     </div>
   </form>
   <app-url-history></app-url-history>
