@@ -5,7 +5,7 @@ import {
   Router,
   UrlTree,
 } from '@angular/router';
-import { ShortenService } from '../components/services/shorten.service';
+import { ShortenService } from '../services/shorten.service';
 
 export const redirectDestinationGuard: CanActivateFn = (route, state) => {
   const shortenService = inject(ShortenService);

@@ -6,7 +6,8 @@ import {
   FormControl,
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { ShortenService } from '../services/shorten.service';
+import { ShortenService } from '../../services/shorten.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-url-generate',
@@ -53,7 +54,14 @@ export class UrlGenerateComponent implements OnInit {
         this.onCreateAction = !this.onCreateAction;
         let createModel = Object.assign({}, this.urlGenerateForm.value);
         this.showProgressBar = true;
-        this.shortService.Create(createModel).subscribe((response) => {
+        this.shortService.Create(createModel)
+        .pipe(
+          finalize(() => {
+            this.showProgressBar = false;
+            this.onCreateAction = !this.onCreateAction;
+          })
+        )
+        .subscribe((response) => {
           if (response.success) {
             this.toastr.success(response.message);
             this.clearAdvancedSettingsValue();
@@ -64,9 +72,9 @@ export class UrlGenerateComponent implements OnInit {
             this.shortUrlElement.nativeElement.select();
             this.btnShortenContent = 'Copy';
             this.shortenUrlBtnVisibilty = true;
-          } else this.toastr.error('Error', response.message);
-          this.showProgressBar = false;
-          this.onCreateAction = !this.onCreateAction;
+            this.showProgressBar = false;
+            this.onCreateAction = !this.onCreateAction;
+          }
         });
       } else {
         this.toastr.error('Invalid URL');

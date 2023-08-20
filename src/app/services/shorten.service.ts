@@ -4,12 +4,14 @@ import { CreateModel } from 'src/app/models/createModel';
 import { SingleResponseModel } from 'src/app/models/singleResponseModel';
 import { ShortenUrlReponseModel } from 'src/app/models/shortenUrlResponseModel';
 import { Guid } from 'guid-typescript';
+import { ProtectedUrlModel } from 'src/app/models/protectedUrlModel';
+import { ResponseModel } from 'src/app/models/responseModel';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ShortenService {
-  apiUrl = 'https://localhost:7057/api/link/';
+  private readonly apiUrl = 'https://localhost:7057/api/link/';
   constructor(private httpClient: HttpClient) {}
 
   Create(createModel: CreateModel) {
@@ -23,7 +25,7 @@ export class ShortenService {
 
     return this.httpClient.get<SingleResponseModel<boolean>>(
       this.apiUrl + 'check-protected',
-      {params}
+      { params }
     );
   }
   GetUrlDestination(shortUrl: string) {
@@ -31,7 +33,16 @@ export class ShortenService {
 
     return this.httpClient.get<SingleResponseModel<string>>(
       this.apiUrl + 'destination',
-      {params}
+      { params }
     );
+  }
+  VerifyPassword(shortUrl: string, password: string) {
+    const params = {
+      shortUrl: shortUrl,
+      password: password,
+    };
+    return this.httpClient.get<ResponseModel>(this.apiUrl + 'verify-password', {
+      params,
+    });
   }
 }
