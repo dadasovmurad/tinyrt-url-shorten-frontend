@@ -16,6 +16,9 @@ import { ValidUrlPipe } from './pipes/valid-url.pipe';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ExceptionHandlerService } from './services/exception-handler.service';
+import { QrGenerateComponent } from './components/qr-generate/qr-generate.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,7 @@ import { ExceptionHandlerService } from './services/exception-handler.service';
     FooterComponent,
     PasswordComponent,
     ValidUrlPipe,
+    QrGenerateComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +44,8 @@ import { ExceptionHandlerService } from './services/exception-handler.service';
       positionClass: 'toast-bottom-right',
     }),
     MatProgressBarModule,
+    MatDialogModule,
+    QRCodeModule,
   ],
   providers: [{ provide: ErrorHandler, useClass: ExceptionHandlerService }],
   bootstrap: [AppComponent],

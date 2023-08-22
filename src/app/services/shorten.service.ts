@@ -45,4 +45,12 @@ export class ShortenService {
       params,
     });
   }
+  Delete(id: Guid) {
+    const params = {
+      id: id.toString(),
+    };
+    return this.httpClient.delete<ResponseModel>(this.apiUrl + 'delete', {
+      params,
+    });
+  }
 }

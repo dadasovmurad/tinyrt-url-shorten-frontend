@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { ShortenUrlReponseModel } from 'src/app/models/shortenUrlResponseModel';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { QrGenerateComponent } from '../qr-generate/qr-generate.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Toast, ToastrService } from 'ngx-toastr';
+import { ShortenService } from 'src/app/services/shorten.service';
 
 @Component({
   selector: 'app-url-history',
@@ -9,8 +14,13 @@ import { ShortenUrlReponseModel } from 'src/app/models/shortenUrlResponseModel';
 })
 export class UrlHistoryComponent implements OnInit {
   historyLinks: ShortenUrlReponseModel[];
-
-  ngOnInit(): void {
+  constructor(
+    private clipboard: Clipboard,
+    private dialogRef: MatDialog,
+    private toastr: ToastrService,
+    private shortenService: ShortenService
+  ) {}
+  ngOnInit(): void {    
     this.fillHistoryLinks();
   }
   fillHistoryLinks() {
@@ -18,8 +28,7 @@ export class UrlHistoryComponent implements OnInit {
       {
         passwordProtected: true,
         id: Guid.parse('7CD0B5A6-6669-4648-C37A-08DBA16CABD7'),
-        destination:
-          'asdasdasdasdasdasdasdasdSADASASDsss',
+        destination: 'asdasdasdasdasdasdasdasdSADASASDsss',
         shortUrl: 'MYURL',
       },
       {
@@ -37,5 +46,29 @@ export class UrlHistoryComponent implements OnInit {
         shortUrl: 'fmcSG',
       },
     ];
+  }
+  openDestinationLink(destination: string) {
+    window.open(destination);
+  }
+  copyShortUrl(shortUrl: string) {
+    this.clipboard.copy(shortUrl);
+  }
+  openQrCode(shortUrl: string) {
+    this.dialogRef.open(QrGenerateComponent, {
+      data: document.location + shortUrl,
+      exitAnimationDuration: '400ms',
+      enterAnimationDuration: '300ms',
+    });
+  }
+  removeLink(id: Guid) {
+    this.shortenService.Delete(id).subscribe((res) => {
+      if (res.success) {
+        this.toastr.success('Link successfully deleted', 'Success');
+      }
+    });
+  }
+  addLocalStroge(shortenUrl:ShortenUrlReponseModel){
+    alert(JSON.stringify(shortenUrl));
+    localStorage.setItem('history',JSON.stringify(shortenUrl));
   }
 }

@@ -1,13 +1,11 @@
 <div class="container-history">
   <div id="basic-information">
-    <h4>Your links</h4>
     <div>Your links are memorized on this device only</div>
   </div>
   <div
     *ngFor="let history of historyLinks"
     class="d-flex justify-content-center"
-    id="history-container"
-  >
+    id="history-container">
     <div id="history-area">
       <div id="history-link-area">
         <div id="short-url" class="d-flex align-items-start">
@@ -38,12 +36,13 @@
           stroke-width="2"
           stroke="currentColor"
           fill="none"
+          (click)="openDestinationLink(history.destination);"
           stroke-linecap="round"
           stroke-linejoin="round"
           class="text-slate-700 dark:text-slate-300 cursor-pointer hover:translate-y-[-1px] hover:opacity-60 transition-all"
           width="20"
           height="20"
-        >
+        > 
           <title>Open link</title>
           <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
           <path
@@ -53,6 +52,7 @@
           <path d="M9 6l3 -3l3 3"></path>
         </svg>
         <svg
+        mat-button
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           stroke-width="2"
@@ -62,6 +62,7 @@
           stroke-linejoin="round"
           class="text-slate-700 dark:text-slate-300 cursor-pointer hover:translate-y-[-1px] hover:opacity-60 transition-all"
           width="20"
+          (click)="copyShortUrl(history.shortUrl)"
           height="20"
         >
           <title>Copy link</title>
@@ -84,6 +85,7 @@
           class="text-slate-700 dark:text-slate-300 cursor-pointer hover:translate-y-[-1px] hover:opacity-60 transition-all"
           width="20"
           height="20"
+          (click)="openQrCode(history.shortUrl)"
         >
           <title>Generate QR code</title>
           <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -117,6 +119,7 @@
           class="text-slate-700 dark:text-slate-300 cursor-pointer hover:translate-y-[-1px] hover:opacity-60 transition-all"
           width="20"
           height="20"
+          (click)="removeLink(history.id)"
         >
           <title>Delete link</title>
           <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
