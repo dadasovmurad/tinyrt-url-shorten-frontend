@@ -23,7 +23,6 @@ export class ExceptionHandlerService implements ErrorHandler {
 
   handleError(error: any): void {
     let statusCode = error.status;
-    console.log(error);
     switch (statusCode) {
       case 400:
         this.zone.run(() =>

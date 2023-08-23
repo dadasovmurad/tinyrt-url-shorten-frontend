@@ -6,6 +6,7 @@ import { QrGenerateComponent } from '../qr-generate/qr-generate.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { ShortenService } from 'src/app/services/shorten.service';
+import { HistoryService } from 'src/app/services/history.service';
 
 @Component({
   selector: 'app-url-history',
@@ -13,45 +14,23 @@ import { ShortenService } from 'src/app/services/shorten.service';
   styleUrls: ['./url-history.component.css'],
 })
 export class UrlHistoryComponent implements OnInit {
-  historyLinks: ShortenUrlReponseModel[];
   constructor(
     private clipboard: Clipboard,
     private dialogRef: MatDialog,
     private toastr: ToastrService,
-    private shortenService: ShortenService
+    private shortenService: ShortenService,
+    private historyService: HistoryService
   ) {}
-  ngOnInit(): void {    
-    this.fillHistoryLinks();
+  historyLinks:ShortenUrlReponseModel[] = this.historyService.HistoryLinks;
+  ngOnInit(): void {
   }
-  fillHistoryLinks() {
-    this.historyLinks = [
-      {
-        passwordProtected: true,
-        id: Guid.parse('7CD0B5A6-6669-4648-C37A-08DBA16CABD7'),
-        destination: 'asdasdasdasdasdasdasdasdSADASASDsss',
-        shortUrl: 'MYURL',
-      },
-      {
-        passwordProtected: false,
-        id: Guid.parse('0B7F3C57-DCF7-40AE-40EB-08DBA106899F'),
-        destination:
-          'https://www.youtube.com/watch?v=mX2L_lVSkOY&ab_channel=MoodMelodies',
-        shortUrl: 'aZ4LW',
-      },
-      {
-        passwordProtected: true,
-        id: Guid.parse('057B8DB7-C17F-463C-D5E1-08DBA17DA2E3'),
-        destination:
-          'https://www.google.com/search?q=global+exception+angular&oq=global+exception+angular&aqs=chrome..69i57j0i512l6j0i22i30l3.3335j0j7&sourceid=chrome&ie=UTF-8',
-        shortUrl: 'fmcSG',
-      },
-    ];
-  }
+
   openDestinationLink(destination: string) {
     window.open(destination);
   }
   copyShortUrl(shortUrl: string) {
-    this.clipboard.copy(shortUrl);
+    this.clipboard.copy(window.location + shortUrl);
+    this.toastr.info('Copied to clipboard!')
   }
   openQrCode(shortUrl: string) {
     this.dialogRef.open(QrGenerateComponent, {
@@ -64,11 +43,9 @@ export class UrlHistoryComponent implements OnInit {
     this.shortenService.Delete(id).subscribe((res) => {
       if (res.success) {
         this.toastr.success('Link successfully deleted', 'Success');
+        this.historyService.removeLocalStorage(id);
+        this.historyLinks = this.historyService.HistoryLinks;
       }
     });
-  }
-  addLocalStroge(shortenUrl:ShortenUrlReponseModel){
-    alert(JSON.stringify(shortenUrl));
-    localStorage.setItem('history',JSON.stringify(shortenUrl));
   }
 }

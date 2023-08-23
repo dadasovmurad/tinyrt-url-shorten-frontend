@@ -8,6 +8,9 @@ import {
 import { ToastrService } from 'ngx-toastr';
 import { ShortenService } from '../../services/shorten.service';
 import { finalize } from 'rxjs';
+import { ShortenUrlReponseModel } from 'src/app/models/shortenUrlResponseModel';
+import { UrlHistoryComponent } from '../url-history/url-history.component';
+import { HistoryService } from 'src/app/services/history.service';
 
 @Component({
   selector: 'app-url-generate',
@@ -32,7 +35,8 @@ export class UrlGenerateComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private shortService: ShortenService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private historyService: HistoryService
   ) {}
 
   ngOnInit(): void {
@@ -67,12 +71,13 @@ export class UrlGenerateComponent implements OnInit {
               this.toastr.success(response.message);
               this.clearAdvancedSettingsValue();
               this.inputUrl = this.previewUrl.concat(response.data.shortUrl);
-              console.log(response.data);
+              // console.log(response.data);
               this.shortUrlElement.nativeElement.value = this.inputUrl;
               this.shortUrlElement.nativeElement.focus();
               this.shortUrlElement.nativeElement.select();
               this.btnShortenContent = 'Copy';
               this.shortenUrlBtnVisibilty = true;
+              this.historyService.addLocalStorage(response.data);
             }
           });
       } else {
