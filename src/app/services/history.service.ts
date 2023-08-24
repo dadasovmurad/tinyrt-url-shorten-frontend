@@ -11,12 +11,11 @@ export class HistoryService {
     return this._historyLinks;
   }
   addLocalStorage(shortenUrl: ShortenUrlReponseModel) {
-    this._historyLinks.push(shortenUrl);
+    this._historyLinks.unshift(shortenUrl);
     localStorage.setItem('history', JSON.stringify(this._historyLinks));
   }
   removeLocalStorage(id: Guid) {
     this._historyLinks = this._historyLinks.filter((x) => x.id != id);
-    // localStorage.removeItem('history');
     localStorage.setItem('history', JSON.stringify(this._historyLinks));
   }
   getLocalStorage(): ShortenUrlReponseModel[] {
