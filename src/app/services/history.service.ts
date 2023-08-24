@@ -11,12 +11,6 @@ export class HistoryService {
     return this._historyLinks;
   }
   addLocalStorage(shortenUrl: ShortenUrlReponseModel) {
-    // var localStorageLinks = localStorage.getItem('history')?.toString();
-    // if (localStorageLinks) {
-    //   var existingLinks = JSON.parse(localStorageLinks);
-    //   this._historyLinks.push(existingLinks);
-    // }
-    // this._historyLinks = this.getLocalStorage();
     this._historyLinks.push(shortenUrl);
     localStorage.setItem('history', JSON.stringify(this._historyLinks));
   }
