@@ -61,7 +61,7 @@
         },
         "serve": {
           "options": {
-            "host": "tinytr.io",
+            "host": "tinyrt.io",
             "port": 80
           },
           "builder": "@angular-devkit/build-angular:dev-server",
