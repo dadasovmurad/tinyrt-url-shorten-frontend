@@ -1,6 +1,7 @@
 # ShortLink Frontend README
 ![Project Screenshot](https://github.com/dadasovmurad/tinyrt-url-shorten-frontend/blob/master/src/assets/screenshots/home-screen.png)
 
+![Project Screenshot](https://github.com/dadasovmurad/tinyrt-url-shorten-frontend/blob/master/src/assets/screenshots/secret-screen.png)
 This repository contains an Angular frontend project that interacts with the ShortLink API to perform URL shortening, link encryption, and management tasks.
 
 ## Project Overview
@@ -31,5 +32,5 @@ Follow these steps to set up the project locally:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/dadasovmurad/shortlink-frontend.git
-   cd shortlink-frontend
+   git clone https://github.com/dadasovmurad/tinyrt-url-shorten-frontend.git
+   cd tinyrt-url-shorten-frontend
