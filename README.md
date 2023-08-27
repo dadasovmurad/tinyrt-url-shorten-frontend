@@ -1,27 +1,35 @@
-# TinyrtUrlShorten
+# ShortLink Frontend README
+![Project Screenshot](https://github.com/dadasovmurad/tinyrt-url-shorten-frontend/blob/master/src/assets/screenshots/home-screen.png)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.0.
+This repository contains an Angular frontend project that interacts with the ShortLink API to perform URL shortening, link encryption, and management tasks.
 
-## Development server
+## Project Overview
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+The ShortLink Frontend is developed using Angular and provides a user-friendly interface to interact with the ShortLink API. Users can create short links from long URLs, optionally add custom short URLs and passwords, manage their created links, and even convert them to QR codes.
 
-## Code scaffolding
+### Features
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- URL Shortening: Generate short links from long URLs.
+- Custom Short URLs: Allow users to customize the short URL part for their links.
+- Link Passwords: Optionally add passwords to short links for extra security.
+- Link Management: View, copy, convert to QR code, and delete short links.
+- Secure Password Access: Access password-protected links securely after authentication.
 
-## Build
+## Tools and Technologies
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+The following tools and technologies are utilized in this project:
 
-## Running unit tests
+- Angular: A popular frontend framework for building dynamic web applications.
+- Bootstrap: A CSS framework for creating responsive and appealing designs.
+- QR Code Generator: Integration to generate QR codes for short links.
+- Authentication: Mechanism to securely access password-protected links.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Getting Started
 
-## Running end-to-end tests
+Follow these steps to set up the project locally:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+1. **Clone the repository:**
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+   ```bash
+   git clone https://github.com/dadasovmurad/shortlink-frontend.git
+   cd shortlink-frontend
